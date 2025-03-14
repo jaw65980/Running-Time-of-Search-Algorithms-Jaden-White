@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <random>
 using namespace std;
 
 class Search {
@@ -55,8 +56,9 @@ private:
     }
 
 public:
-    vector<int> arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int target = 6;
+    int target;
+    int randomvector;
+    vector<int> arr = {};
 
     void recursivesearch() {
         int recursiveresult = recursiveBinarySearch(arr, target, 0, (arr.size() - 1));
@@ -94,6 +96,26 @@ public:
 int main()
 {
     Search searchtype;
+    mt19937 rng(random_device{}());
+    uniform_int_distribution<int> distribution(1, 100);
+    int random_number = distribution(rng);
+    int Vectorend = 0;
+
+    cout << "Vector: {";
+    for (int i = 0; i < 9; i++) {
+        Vectorend++;
+        searchtype.arr.push_back(random_number);
+        cout << searchtype.arr[i] << ", ";
+        random_number = distribution(rng);
+    }
+
+    random_number = distribution(rng);
+    searchtype.arr.push_back(random_number);
+    cout << searchtype.arr[Vectorend] << "}" << endl;
+
+    random_number = distribution(rng);
+    searchtype.target = random_number;
+    cout << "Target: " << searchtype.target << endl;
     searchtype.recursivesearch();
     searchtype.iterbinsearch();
     searchtype.seqsearch();
