@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <vector>
 #include <random>
+#include <chrono>
 using namespace std;
 
 class Search {
@@ -100,18 +101,16 @@ int main()
     uniform_int_distribution<int> distribution(1, 100);
     int random_number = distribution(rng);
     int Vectorend = 0;
+    int N = 5000;
 
-    cout << "Vector: {";
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < N-1; i++) {
         Vectorend++;
         searchtype.arr.push_back(random_number);
-        cout << searchtype.arr[i] << ", ";
         random_number = distribution(rng);
     }
 
     random_number = distribution(rng);
     searchtype.arr.push_back(random_number);
-    cout << searchtype.arr[Vectorend] << "}" << endl;
 
     random_number = distribution(rng);
     searchtype.target = random_number;
