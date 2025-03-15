@@ -14,14 +14,11 @@ private:
             int mid = low + ((high - low) / 2);
             if (arr[mid] == target) {
                 return mid;
-                cout << "foundrec" << endl;
             }
             else if (arr[mid] < target) {
-                cout << "donerec1" << endl;
                 return recursiveBinarySearch(arr, target, mid + 1, high);
             }
             else {
-                cout << "donerec2" << endl;
                 return recursiveBinarySearch(arr, target, low, mid - 1);
             }
         }
@@ -38,15 +35,12 @@ private:
             int mid = low + ((high - low) / 2);
             if (arr[mid] == target) {
                 return mid;
-                cout << "foundit" << endl;
             }
             else if (arr[mid] < target) {
                 low = mid + 1;
-                cout << "doneit1" << endl;
             }
             else {
                 high = mid - 1;
-                cout << "doneit2" << endl;
             }
         }
         return -1;
@@ -68,7 +62,6 @@ public:
 
     void recursivesearch() {
         int recursiveresult = recursiveBinarySearch(arr, target, 0, arr.size());
-        cout << recursiveresult << endl;
         if (recursiveresult == -1) {
             cout << "Recusive result not found." << endl;
         }
@@ -79,7 +72,6 @@ public:
 
     void iterbinsearch() {
         int iterbinresult = iterativeBinarySearch(arr, target);
-        cout << iterbinresult << endl;
         if (iterbinresult == -1) {
             cout << "Iterative result not found." << endl;
         }
@@ -90,7 +82,6 @@ public:
 
     void seqsearch() {
         int sequentialresult = sequentialSearch(arr, target);
-        cout << sequentialresult <<endl;
         if (sequentialresult == -1) {
             cout << "Sequential result not found." << endl;
         }
