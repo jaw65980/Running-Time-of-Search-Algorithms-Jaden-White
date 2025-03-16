@@ -10,9 +10,10 @@ using namespace std;
 
 class Search {
 private:
+
     int recursiveBinarySearch(const vector<int>& arr, int target, int low, int high) {
         if (low <= high) {
-            int mid = low + ((high - low) / 2);
+            int mid = low + (high - low) / 2;
             if (arr[mid] == target) {
                 return mid;
             }
@@ -89,7 +90,7 @@ public:
         else {
             cout << "Sequential result found at index " << sequentialresult << "." << endl;
         }
-    }
+    } 
 };
 
 
@@ -101,22 +102,57 @@ int main()
     uniform_int_distribution<int> distribution(1, 100);
     int random_number = distribution(rng);
     int Vectorend = 0;
-    int N = 5000;
+    int N = 1000000;
+    int SumRBS = 0;
+    int SumIBS = 0;
+    int SumSeqS = 0;
+    int TotalRBS = 0;
+    int TotalIBS = 0;
+    int TotalSeqS = 0;
+    
+    for (int i = 0; i < 10; i++) {
+        cout << "Trial: " << i+1 << endl;
+        for (int i = 0; i < N-1; i++) {
+            Vectorend++;
+            searchtype.arr.push_back(random_number);
+            random_number = distribution(rng);
+        }
 
-    for (int i = 0; i < N-1; i++) {
-        Vectorend++;
+        random_number = distribution(rng);
         searchtype.arr.push_back(random_number);
         random_number = distribution(rng);
+        searchtype.target = random_number;
+        cout << "Target: " << searchtype.target << endl;
+    
+        auto start_time = chrono::high_resolution_clock::now();
+        searchtype.recursivesearch();
+        auto end_time = chrono::high_resolution_clock::now();
+        SumRBS = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+        cout << "Recursive binary search time: " << SumRBS << " microseconds." << endl;
+    
+        start_time = chrono::high_resolution_clock::now();
+        searchtype.iterbinsearch();
+        end_time = chrono::high_resolution_clock::now();
+        SumIBS = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+        cout << "Iterative binary search time: " << SumIBS << " microseconds." << endl;
+
+        start_time = chrono::high_resolution_clock::now();
+        searchtype.seqsearch();
+        end_time = chrono::high_resolution_clock::now();
+        SumSeqS = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+        cout << "Sequential binary search time: " << SumIBS << " microseconds." << endl;
+        cout << endl;
+
+        TotalRBS = TotalRBS + SumRBS;
+        TotalIBS = TotalIBS + SumIBS;
+        TotalSeqS = TotalSeqS + SumSeqS;
     }
 
-    random_number = distribution(rng);
-    searchtype.arr.push_back(random_number);
-
-    random_number = distribution(rng);
-    searchtype.target = random_number;
-    cout << "Target: " << searchtype.target << endl;
-    searchtype.recursivesearch();
-    searchtype.iterbinsearch();
-    searchtype.seqsearch();
+    TotalRBS = TotalRBS / 10;
+    TotalIBS = TotalIBS / 10;
+    TotalSeqS = TotalSeqS / 10;
+    cout << "Average recursive binary search time: " << TotalRBS << endl;
+    cout << "Average iterative binary search time: " << TotalIBS << endl;
+    cout << "Average sequential binary search time: " << TotalSeqS << endl;
 };
 
