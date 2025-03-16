@@ -102,7 +102,7 @@ int main()
     uniform_int_distribution<int> distribution(1, 100);
     int random_number = distribution(rng);
     int Vectorend = 0;
-    int N = 1000000;
+    int N = 5000;
     int SumRBS = 0;
     int SumIBS = 0;
     int SumSeqS = 0;
@@ -140,7 +140,7 @@ int main()
         searchtype.seqsearch();
         end_time = chrono::high_resolution_clock::now();
         SumSeqS = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
-        cout << "Sequential binary search time: " << SumIBS << " microseconds." << endl;
+        cout << "Sequential search time: " << SumIBS << " microseconds." << endl;
         cout << endl;
 
         TotalRBS = TotalRBS + SumRBS;
